@@ -1,21 +1,25 @@
-e an official Node.js runtime as a parent image
 FROM node:14-alpine
 
-# Set the working directory to /app
-WORKDIR /app
+# Install bash to use 'wait-for-it'
+RUN apk update && apk add bash && apk add --no-cache coreutils
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+# Set an environment variable to store where the app is installed to inside
+# of the Docker image.
+ENV APP_HOME /app
 
-# Install app dependencies
-RUN npm install
+# This sets the context of where commands will be ran in and is documented
+# on Docker's website extensively.
+RUN mkdir -p $APP_HOME
+WORKDIR $APP_HOME
 
-# Copy the rest of the application code
+# Copy code from working directory outside Docker to working directory inside Docker
 COPY . .
+# Install packages
+RUN yarn install
 
-# Expose the port that the app will run on
-EXPOSE 3000
+# Set stop signal to SIGQUIT for graceful shutdown
+STOPSIGNAL SIGQUIT
 
-# Command to run your application
-CMD ["npm", "run", "dev"]
+EXPOSE 5000
 
+CMD ["yarn", "dev"]

@@ -1,19 +1,11 @@
-version: '3'
+version: "2"
 services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  frontend:
+    build: ./
     ports:
       - "3000:3000"
+    command: ["yarn", "dev"]
     volumes:
-      - ./my-nuxt-app:/app
-    environment:
-      - HOST=0.0.0.0
-    depends_on:
-      - api
-  api:
-    image: your-api-image:tag  # Replace with your API image details
-    ports:
-      - "4000:4000"
-
+      - ./:/app/
+      - /app/node_modules
+ 
