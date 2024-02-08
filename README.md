@@ -1,42 +1,72 @@
+  
+
+```markdown
 # my-nuxt-app
 
 ## Build Setup
 
 ```bash
-# install dependencies
+# Install dependencies
 $ yarn install
 
-# serve with hot reload at localhost:3000
+# Serve with hot reload at localhost:3000
 $ yarn dev
 
-# build for production and launch server
+# Build for production and launch server
 $ yarn build
 $ yarn start
 
-# generate static project
+# Generate static project
 $ yarn generate
 ```
 
- 
-"# CICD_practice" 
-url -s https://deb.nodesource.com/setup_16.x | sudo bash
-npm install -g yarn
+# CICD_practice
 
-sudo apt update
-sudo apt install openjdk-11-jdk
+## Prerequisites
 
-sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
-  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
-  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-  /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt-get update
-sudo apt-get install jenkins
+```bash
+# Install Node.js 16.x
+$ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo bash
+$ sudo apt-get install -y nodejs
 
-sudo systemctl start jenkins
+# Install Yarn globally
+$ npm install -g yarn
 
-sudo systemctl enable jenkins
+# Install OpenJDK 11
+$ sudo apt-get update
+$ sudo apt-get install -y openjdk-11-jdk
+```
 
-http://your_server_ip_or_domain:8080
+## Install Jenkins
 
-cat /var/lib/jenkins/secrets/initialAdminPassword
+```bash
+# Add Jenkins keyring
+$ sudo wget -O /usr/share/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+$ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+# Update and install Jenkins
+$ sudo apt-get update
+$ sudo apt-get install -y jenkins
+
+# Start Jenkins service
+$ sudo systemctl start jenkins
+
+# Enable Jenkins service on system boot
+$ sudo systemctl enable jenkins
+```
+
+## Access Jenkins
+
+Visit `http://your_server_ip_or_domain:8080` in your web browser.
+
+Retrieve the initialAdminPassword:
+
+```bash
+$ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+This password is required during the Jenkins setup process.
+
+```
+
+Feel free to customize this template further based on your specific project details and requirements.
