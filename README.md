@@ -98,3 +98,26 @@ Make sure to adjust the GitHub repository URL in the Jenkins pipeline according 
 ```
 
 Feel free to customize the instructions based on your specific needs.
+
+
+The error "bad interpreter: /bin/bash^M: no such file or directory" indicates that your script has Windows-style line endings (CRLF) instead of Unix-style line endings (LF). The ^M character represents the carriage return (CR) from Windows line endings.
+
+To fix this issue, you can convert the line endings in your script to Unix format. You can use the `dos2unix` command to do this. If it's not installed on your system, you can install it using your package manager. For example, on Ubuntu, you can use:
+
+```bash
+sudo apt-get install dos2unix
+```
+
+Once installed, run the following command to convert the line endings:
+
+```bash
+dos2unix setup.sh
+```
+
+Afterwards, try running your setup script again:
+
+```bash
+./setup.sh
+```
+
+This should resolve the "bad interpreter" issue. The dos2unix command will remove the Windows-style line endings and replace them with Unix-style line endings.
